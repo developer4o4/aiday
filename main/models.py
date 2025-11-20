@@ -29,6 +29,9 @@ class User(models.Model):
         ('rfutbol', 'Robo Futbol'),
         ('rsumo', 'Robo sumo'),
         ('fixtirolar', 'Foydali Ixtirolar'),
+        ('ai', 'Ai'),
+        ('contest', 'Contest'),
+        
     ]
     
     qr_code = models.OneToOneField( 
