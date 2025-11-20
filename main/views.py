@@ -92,12 +92,12 @@ def user_by_qrcode(request, qr_code):
 class AdminUserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminUser()]
+    permission_classes = [IsAdminUser]
 
 class QrcodeListView(generics.ListAPIView):
     queryset = Qrcode.objects.all()
     serializer_class = QrcodeSerializer
-    permission_classes = [IsAdminUser()]
+    permission_classes = [IsAdminUser]
 
 
 
