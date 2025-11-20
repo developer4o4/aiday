@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-vmoz(ri&zhnu4)83yanq_ro#+l@&9wm2ni!*84qvi#cl77(-13
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
