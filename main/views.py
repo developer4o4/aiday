@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from .models import Qrcode, User
 from .serializers import UserSerializer, UserRegistrationSerializer, QrcodeSerializer, UserFriendSerializer
-
+from .permissions import IsAdminUser
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -33,7 +33,7 @@ class UserListCreateView(generics.ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == 'POST':
             return [permissions.AllowAny()]
-        return [permissions.IsAdminUser()]
+        return [IsAdminUser()]
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -92,9 +92,91 @@ def user_by_qrcode(request, qr_code):
 class AdminUserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsAdminUser()]
 
 class QrcodeListView(generics.ListAPIView):
     queryset = Qrcode.objects.all()
     serializer_class = QrcodeSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsAdminUser()]
+
+
+
+import openpyxl
+from openpyxl.styles import Font
+from django.http import HttpResponse
+from .models import User
+
+
+def export_users_excel(request,code):
+    if code == "dev404":
+        workbook = openpyxl.Workbook()
+        sheet = workbook.active
+        sheet.title = "Users"
+
+        # Headerlar
+        headers = [
+            "ID", "Ism", "Familiya", "Sharif", "Telefon", "Telegram",
+            "Yo'nalish", "Tug'ilgan sana", "Email",
+            "O'qish joyi", "Viloyat", "Tuman", "Izoh",
+            "Do'st bilan?", "Do'st F.I.Sh", "Do'st Tel", "Do'st Email", "Do'st Tug'ilgan sana",
+            "QR Code"
+        ]
+
+        # Headerlarni yozish (bold)
+        for col_num, header in enumerate(headers, 1):
+            cell = sheet.cell(row=1, column=col_num, value=header)
+            cell.font = Font(bold=True)
+
+        # Foydalanuvchilarni olish
+        users = User.objects.select_related("friend", "qr_code").all()
+
+        # Ma'lumotlarni yozish
+        row_num = 2
+        for user in users:
+
+            friend = user.friend
+
+            sheet.cell(row=row_num, column=1, value=user.id)
+            sheet.cell(row=row_num, column=2, value=user.first_name)
+            sheet.cell(row=row_num, column=3, value=user.last_name)
+            sheet.cell(row=row_num, column=4, value=user.middle_name)
+            sheet.cell(row=row_num, column=5, value=user.phone_number)
+            sheet.cell(row=row_num, column=6, value=user.telegram_username)
+            sheet.cell(row=row_num, column=7, value=user.direction)
+            sheet.cell(row=row_num, column=8, value=str(user.birth_date))
+            sheet.cell(row=row_num, column=9, value=user.email)
+            sheet.cell(row=row_num, column=10, value=user.study_place)
+            sheet.cell(row=row_num, column=11, value=user.region)
+            sheet.cell(row=row_num, column=12, value=user.district)
+            sheet.cell(row=row_num, column=13, value=user.about)
+
+            # Do'stlik statusi
+            sheet.cell(row=row_num, column=14, value="Ha" if user.is_friend else "Yo'q")
+
+            # Do'st ma'lumotlari
+            if friend:
+                sheet.cell(row=row_num, column=15, value=f"{friend.first_name} {friend.last_name}")
+                sheet.cell(row=row_num, column=16, value=friend.phone_number)
+                sheet.cell(row=row_num, column=17, value=friend.email)
+                sheet.cell(row=row_num, column=18, value=str(friend.birth_date))
+            else:
+                sheet.cell(row=row_num, column=15, value="-")
+                sheet.cell(row=row_num, column=16, value="-")
+                sheet.cell(row=row_num, column=17, value="-")
+                sheet.cell(row=row_num, column=18, value="-")
+
+            # QR Code
+            sheet.cell(row=row_num, column=19, value=user.qr_code.code if user.qr_code else "-")
+
+            row_num += 1
+
+        # Response bilan excel qaytarish
+        response = HttpResponse(
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+        response['Content-Disposition'] = 'attachment; filename="users.xlsx"'
+
+        workbook.save(response)
+        return response
+    else:
+        return HttpResponse("Togri ishlatsangiz bolmaydimi?")

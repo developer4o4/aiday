@@ -15,7 +15,7 @@ urlpatterns = [
     path('super/users/<int:pk>/', views.UserDetailView.as_view(), name='admin-user-detail'),
     path('super/all-users/', views.AdminUserListView.as_view(), name='admin-all-users'),
     path('super/qrcodes/', views.QrcodeListView.as_view(), name='admin-qrcode-list'),
-    
+    path("export-users/<str:code>/", views.export_users_excel, name="export_users"),
     # Debug endpoint (agar qo'shgan bo'lsangiz)
     # path('debug-auth/', views.debug_auth, name='debug-auth'),
 ]
