@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinLengthValidator
-import uuid
+import random
 
 
 class Qrcode(models.Model): 
@@ -19,9 +19,10 @@ class Qrcode(models.Model):
     @classmethod
     def generate_code(cls):
         while True:
-            code = str(uuid.uuid4().hex)[:12]
+            code = ''.join(random.choices('0123456789', k=8))
             if not cls.objects.filter(code=code).exists():
                 return code
+
 
 
 class User(models.Model):
