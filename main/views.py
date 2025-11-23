@@ -100,6 +100,45 @@ class QrcodeListView(generics.ListAPIView):
     permission_classes = [IsAdminUser]
 
 
+from rest_framework.views import APIView
+
+
+class StatisticsAPIView(APIView):
+    
+    permission_classes = [IsAdminUser]
+
+
+    def get(self, request):
+        directions = dict(User.DIRECTION_CHOICES)
+
+        # Umumiy statistika
+        total_users = User.objects.count()
+        total_male = User.objects.filter(gender__iexact="erkak").count()
+        total_female = User.objects.filter(gender__iexact="ayol").count()
+
+        # Har bir yo‘nalish bo‘yicha statistika
+        direction_stats = {}
+
+        for key, label in directions.items():
+            users_in_direction = User.objects.filter(direction=key)
+
+            direction_stats[key] = {
+                "name": label,
+                "total": users_in_direction.count(),
+                "male": users_in_direction.filter(gender__iexact="erkak").count(),
+                "female": users_in_direction.filter(gender__iexact="ayol").count(),
+            }
+
+        data = {
+            "total": {
+                "all_users": total_users,
+                "all_male": total_male,
+                "all_female": total_female,
+            },
+            "directions": direction_stats
+        }
+
+        return Response(data)
 
 import openpyxl
 from openpyxl.styles import Font
