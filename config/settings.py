@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vmoz(ri&zhnu4)83yanq_ro#+l@&9wm2ni!*84qvi#cl77(-13'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -43,14 +43,16 @@ INSTALLED_APPS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "https://aiday.infinite-co.uz",
+    "https://online.raqamliavlod.uz"
     "https://www.aiday.infinite-co.uz",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://aiday.infinite-co.uz",
+    "https://online.raqamliavlod.uz"
 ]
 
 MIDDLEWARE = [

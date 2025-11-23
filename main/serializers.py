@@ -15,7 +15,7 @@ class FriendRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'middle_name', 'phone_number',
+            'first_name', 'last_name', 'middle_name', 'phone_number','gender',
             'telegram_username', 'birth_date', 'email', 'study_place',
             'region', 'district', 'about'
         ]
@@ -26,7 +26,7 @@ class UserFriendSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'first_name', 'last_name', 'middle_name', 'phone_number',
-            'email', 'telegram_username', 'birth_date', 'study_place',
+            'email', 'telegram_username', 'birth_date', 'study_place','gender',
             'region', 'district', 'about'
         ]
 
@@ -39,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'qr_code', 'qr_code_info', 'friend', 'friend_info',
-            'first_name', 'last_name', 'middle_name', 'phone_number', 
+            'first_name', 'last_name', 'middle_name', 'phone_number', 'gender',
             'telegram_username', 'direction', 'birth_date', 'email',
             'study_place', 'region', 'district', 'about', 'is_friend',
             'created_at', 'is_active'
@@ -65,7 +65,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'middle_name', 'phone_number',
+            'first_name', 'last_name', 'middle_name', 'phone_number','gender',
             'telegram_username', 'direction', 'birth_date', 'email',
             'study_place', 'region', 'district', 'about', 'friend_data'
         ]
