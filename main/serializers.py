@@ -113,13 +113,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         # Agar Robo Futbol bo'lsa, do'st yaratish
         if direction == 'rfutbol' and friend_data:
             # Do'st uchun email unikal ligini tekshirish
-            friend_email = friend_data.get('email')
-            if User.objects.filter(email=friend_email).exists():
-                raise serializers.ValidationError({
-                    'friend_data': {
-                        'email': ['Bu email allaqachon ro\'yxatdan o\'tgan']
-                    }
-                })
             
             # Do'st user yaratish
             friend_user = User.objects.create(
