@@ -98,12 +98,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             })
         
         # Do'st emaili asosiy user emaili bilan bir xil bo'lmasligi kerak
-        if friend_data and data.get('email') == friend_data.get('email'):
-            raise serializers.ValidationError({
-                'friend_data': {
-                    'email': ['Do\'st emaili sizning emailingiz bilan bir xil bo\'lmasligi kerak']
-                }
-            })
+        
         
         return data
     
