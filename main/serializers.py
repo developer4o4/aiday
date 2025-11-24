@@ -82,7 +82,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
                 })
             
             # Do'st maydonlarini tekshirish
-            required_fields = ['first_name', 'last_name', 'phone_number', 'birth_date', 'email', 'study_place', 'region', 'district']
+            required_fields = ['first_name', 'last_name', 'phone_number', 'birth_date', 'study_place', 'region', 'district']
             for field in required_fields:
                 if not friend_data.get(field):
                     raise serializers.ValidationError({
