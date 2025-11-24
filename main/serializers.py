@@ -56,46 +56,46 @@ class UserSerializer(serializers.ModelSerializer):
 
 # 3. Oxirgi - registration serializer
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    friend_data = FriendRegistrationSerializer(
-        write_only=True, 
-        required=False,
-        help_text="Do'stning to'liq ma'lumotlari (Robo Futbol uchun majburiy)"
-    )
+    # friend_data = FriendRegistrationSerializer(
+    #     write_only=True, 
+    #     required=False,
+    #     help_text="Do'stning to'liq ma'lumotlari (Robo Futbol uchun majburiy)"
+    # )
     
     class Meta:
         model = User
         fields = [
             'first_name', 'last_name', 'middle_name', 'phone_number','gender',
             'telegram_username', 'direction', 'birth_date', 'email',
-            'study_place', 'region', 'district', 'about', 'friend_data'
+            'study_place', 'region', 'district', 'about'
         ]
     
-    def validate(self, data):
-        direction = data.get('direction')
-        friend_data = data.get('friend_data')
+    # def validate(self, data):
+        # direction = data.get('direction')
+        # friend_data = data.get('friend_data')
         
-        # Robo Futbol uchun do'st ma'lumotlari majburiy
-        if direction == 'rfutbol':
-            if not friend_data:
-                raise serializers.ValidationError({
-                    'friend_data': "Robo Futbol yo'nalishi uchun do'stning to'liq ma'lumotlari kiritilishi shart"
-                })
+        # # Robo Futbol uchun do'st ma'lumotlari majburiy
+        # if direction == 'rfutbol':
+        #     if not friend_data:
+        #         raise serializers.ValidationError({
+        #             'friend_data': "Robo Futbol yo'nalishi uchun do'stning to'liq ma'lumotlari kiritilishi shart"
+        #         })
             
-            # Do'st maydonlarini tekshirish
-            required_fields = ['first_name', 'last_name', 'phone_number', 'birth_date', 'study_place', 'region', 'district']
-            for field in required_fields:
-                if not friend_data.get(field):
-                    raise serializers.ValidationError({
-                        'friend_data': {
-                            field: [f'Do\'stning {field} maydoni to\'ldirilishi shart']
-                        }
-                    })
+        #     # Do'st maydonlarini tekshirish
+        #     required_fields = ['first_name', 'last_name', 'phone_number', 'birth_date', 'study_place', 'region', 'district']
+        #     for field in required_fields:
+        #         if not friend_data.get(field):
+        #             raise serializers.ValidationError({
+        #                 'friend_data': {
+        #                     field: [f'Do\'stning {field} maydoni to\'ldirilishi shart']
+        #                 }
+        #             })
         
-        # Boshqa yo'nalishlar uchun do'st ma'lumotlari bo'lmasligi kerak
-        if direction != 'rfutbol' and friend_data:
-            raise serializers.ValidationError({
-                'friend_data': "Faqat Robo Futbol yo'nalishi uchun do'st ma'lumotlari kiritiladi"
-            })
+        # # Boshqa yo'nalishlar uchun do'st ma'lumotlari bo'lmasligi kerak
+        # if direction != 'rfutbol' and friend_data:
+        #     raise serializers.ValidationError({
+        #         'friend_data': "Faqat Robo Futbol yo'nalishi uchun do'st ma'lumotlari kiritiladi"
+        #     })
         
         # Do'st emaili asosiy user emaili bilan bir xil bo'lmasligi kerak
         

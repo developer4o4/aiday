@@ -63,10 +63,10 @@ class UserRegistrationView(generics.CreateAPIView):
         }
         
         # Agar do'st yaratilgan bo'lsa, uning ma'lumotlarini ham qo'shish
-        if user.friend:
-            friend_serializer = UserSerializer(user.friend)
-            response_data['friend'] = friend_serializer.data
-            response_data['message'] = 'User va do\'sti muvaffaqiyatli ro\'yxatdan o\'tdi'
+        # if user.friend:
+        #     friend_serializer = UserSerializer(user.friend)
+        #     response_data['friend'] = friend_serializer.data
+        #     response_data['message'] = 'User va do\'sti muvaffaqiyatli ro\'yxatdan o\'tdi'
         
         return Response(response_data, status=status.HTTP_201_CREATED)
 

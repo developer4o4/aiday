@@ -70,27 +70,27 @@ class User(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
-    def clean(self):
-        """Modelni tozalash - validatsiya qilish"""
-        from django.core.exceptions import ValidationError
+    # def clean(self):
+    #     """Modelni tozalash - validatsiya qilish"""
+    #     from django.core.exceptions import ValidationError
         
-        # Robo Futbol uchun do'st majburiy
-        if self.direction == 'rfutbol' and not self.friend:
-            raise ValidationError({
-                'friend': "Robo Futbol yo'nalishi uchun do'st tanlashingiz kerak"
-            })
+    #     # Robo Futbol uchun do'st majburiy
+    #     if self.direction == 'rfutbol' and not self.friend:
+    #         raise ValidationError({
+    #             'friend': "Robo Futbol yo'nalishi uchun do'st tanlashingiz kerak"
+    #         })
         
-        # Do'st o'zi ham Robo Futbol tanlash kerak
-        if self.friend and self.friend.direction != 'rfutbol':
-            raise ValidationError({
-                'friend': "Do'st ham Robo Futbol yo'nalishini tanlashi kerak"
-            })
+    #     # Do'st o'zi ham Robo Futbol tanlash kerak
+    #     if self.friend and self.friend.direction != 'rfutbol':
+    #         raise ValidationError({
+    #             'friend': "Do'st ham Robo Futbol yo'nalishini tanlashi kerak"
+    #         })
         
-        # O'zini o'ziga do'st qilib belgilashni oldini olish
-        if self.friend and self.friend.id == self.id:
-            raise ValidationError({
-                'friend': "O'zingizni o'zingizga do'st qilib belgilay olmaysiz"
-            })
+    #     # O'zini o'ziga do'st qilib belgilashni oldini olish
+    #     if self.friend and self.friend.id == self.id:
+    #         raise ValidationError({
+    #             'friend': "O'zingizni o'zingizga do'st qilib belgilay olmaysiz"
+    #         })
     
     def save(self, *args, **kwargs):
         # Avtomatik QR code yaratish
@@ -102,34 +102,34 @@ class User(models.Model):
             self.qr_code = qr_code
         
         # Robo Futbol yo'nalishi uchun is_friend ni avtomatik sozlash
-        if self.direction == 'rfutbol':
-            self.is_friend = True
-        else:
-            self.is_friend = False
-            self.friend = None
+        # if self.direction == 'rfutbol':
+        #     self.is_friend = True
+        # else:
+        #     self.is_friend = False
+        #     self.friend = None
         
         # Validatsiyani tekshirish (faqat friend mavjud bo'lsa)
-        if self.friend:
-            self.full_clean()
+        # if self.friend:
+        #     self.full_clean()
         
         super().save(*args, **kwargs)
     
-    @property
-    def has_friend(self):
-        return self.friend is not None
+    # @property
+    # def has_friend(self):
+    #     return self.friend is not None
     
-    @property
-    def friend_info(self):
-        if self.friend:
-            return {
-                'id': self.friend.id,
-                'full_name': f"{self.friend.first_name} {self.friend.last_name}",
-                'phone': self.friend.phone_number,
-                'email': self.friend.email,
-                'study_place': self.friend.study_place,
-                'birth_date': self.friend.birth_date
-            }
-        return None
+    # @property
+    # def friend_info(self):
+    #     if self.friend:
+    #         return {
+    #             'id': self.friend.id,
+    #             'full_name': f"{self.friend.first_name} {self.friend.last_name}",
+    #             'phone': self.friend.phone_number,
+    #             'email': self.friend.email,
+    #             'study_place': self.friend.study_place,
+    #             'birth_date': self.friend.birth_date
+    #         }
+    #     return None
     
     class Meta:
         verbose_name = "User"
