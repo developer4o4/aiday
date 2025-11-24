@@ -14,8 +14,10 @@ SECRET_KEY = 'django-insecure-vmoz(ri&zhnu4)83yanq_ro#+l@&9wm2ni!*84qvi#cl77(-13
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-ALLOWED_HOSTS = ["https://aiday.infinite-co.uz","https://online.raqamliavlod.uz/"]
+ALLOWED_HOSTS = [
+    "aiday.infinite-co.uz",
+    "online.raqamliavlod.uz",
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
