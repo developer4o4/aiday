@@ -100,33 +100,33 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         # Do'st emaili asosiy user emaili bilan bir xil bo'lmasligi kerak
         
         
-        return data
+        # return data
     
-    @transaction.atomic
-    def create(self, validated_data):
-        friend_data = validated_data.pop('friend_data', None)
-        direction = validated_data.get('direction')
+    # @transaction.atomic
+    # def create(self, validated_data):
+    #     friend_data = validated_data.pop('friend_data', None)
+    #     direction = validated_data.get('direction')
         
-        # Asosiy user yaratish
-        user = User.objects.create(**validated_data)
+    #     # Asosiy user yaratish
+    #     user = User.objects.create(**validated_data)
         
-        # Agar Robo Futbol bo'lsa, do'st yaratish
-        if direction == 'rfutbol' and friend_data:
-            # Do'st uchun email unikal ligini tekshirish
+    #     # Agar Robo Futbol bo'lsa, do'st yaratish
+    #     if direction == 'rfutbol' and friend_data:
+    #         # Do'st uchun email unikal ligini tekshirish
             
-            # Do'st user yaratish
-            friend_user = User.objects.create(
-                **friend_data,
-                direction='rfutbol',
-                is_friend=True
-            )
+    #         # Do'st user yaratish
+    #         friend_user = User.objects.create(
+    #             **friend_data,
+    #             direction='rfutbol',
+    #             is_friend=True
+    #         )
             
-            # Asosiy userga do'stni bog'lash
-            user.friend = friend_user
-            user.save()
+    #         # Asosiy userga do'stni bog'lash
+    #         user.friend = friend_user
+    #         user.save()
             
-            # Do'stga ham asosiy userni bog'lash
-            friend_user.friend = user
-            friend_user.save()
+    #         # Do'stga ham asosiy userni bog'lash
+    #         friend_user.friend = user
+    #         friend_user.save()
         
-        return user
+    #     return user
