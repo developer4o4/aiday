@@ -113,8 +113,8 @@ class StatisticsAPIView(APIView):
 
         # Umumiy statistika
         total_users = User.objects.count()
-        total_male = User.objects.filter(gender__iexact="erkak").count()
-        total_female = User.objects.filter(gender__iexact="ayol").count()
+        total_male = User.objects.filter(gender__iexact="male").count()
+        total_female = User.objects.filter(gender__iexact="female").count()
 
         # Har bir yo‘nalish bo‘yicha statistika
         direction_stats = {}
@@ -125,8 +125,8 @@ class StatisticsAPIView(APIView):
             direction_stats[key] = {
                 "name": label,
                 "total": users_in_direction.count(),
-                "male": users_in_direction.filter(gender__iexact="erkak").count(),
-                "female": users_in_direction.filter(gender__iexact="ayol").count(),
+                "male": users_in_direction.filter(gender__iexact="male").count(),
+                "female": users_in_direction.filter(gender__iexact="female").count(),
             }
 
         data = {
