@@ -17,7 +17,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "aiday.infinite-co.uz",
     "online.raqamliavlod.uz",
-    "localhost:3000"
+    "localhost:3000",
+    "localhost",
 ]
 
 REST_FRAMEWORK = {
