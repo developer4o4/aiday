@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://aiday.infinite-co.uz",
-    "https://online.raqamliavlod.uz"
+    "https://online.raqamliavlod.uz",
     "http://localhost:3000/",
     "https://www.aiday.infinite-co.uz",
 ]
