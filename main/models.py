@@ -58,7 +58,7 @@ class User(models.Model):
     direction = models.CharField(max_length=20, choices=DIRECTION_CHOICES)
     birth_date = models.DateField(default="")
     gender = models.CharField(max_length=20)
-    email = models.EmailField(unique=True,null=True,blank=True)
+    email = models.EmailField(null=True,blank=True)
     study_place = models.CharField(max_length=100)
     region = models.CharField(max_length=50)
     district = models.CharField(max_length=50)

@@ -17,8 +17,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "aiday.infinite-co.uz",
     "online.raqamliavlod.uz",
-    "localhost:3000",
-    "localhost",
+    "stats.dev-platform.uz"
 ]
 
 REST_FRAMEWORK = {
@@ -47,24 +46,24 @@ INSTALLED_APPS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://aiday.infinite-co.uz",
     "https://online.raqamliavlod.uz",
-    "http://localhost:3000/",
+    "https://stats.dev-platform.uz"
     "https://www.aiday.infinite-co.uz",
 ]
 
-# CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True 
 
 CORS_ALLOWED_ORIGINS = [
     "https://aiday.infinite-co.uz",
     "https://online.raqamliavlod.uz",
-    "http://localhost:3000",
+    "https://stats.dev-platform.uz"
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     "config.middleware.rate_limit.RateLimitMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
