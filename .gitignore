@@ -1,2 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+env/
+venv/
+ENV/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.sqlite3
+*.sqlite3-journal
+
+# Ignore all migrations except __init__.py
+*/migrations/*
+!*/migrations/__init__.py
+
+# Excel, temp files
+*.xls
+*.xlsx
+~*.xlsx
+
+# Local configs
+local_settings.py
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*~
+*.bak
+
+# Project specific
 db.sqlite3
-env
+db_new.sqlite3
