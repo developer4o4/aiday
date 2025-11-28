@@ -13,22 +13,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vmoz(ri&zhnu4)83yanq_ro#+l@&9wm2ni!*84qvi#cl77(-13'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = [
     "aiday.infinite-co.uz",
     "online.raqamliavlod.uz",
-    "stats.dev-platform.uz"
+    "stats.dev-platform.uz",
+    "127.0.0.1",
+    "localhost:3000"
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',  # MAJBURIY
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # DEFAULT
-    ],
-}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,7 +40,8 @@ INSTALLED_APPS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://aiday.infinite-co.uz",
     "https://online.raqamliavlod.uz",
-    "https://stats.dev-platform.uz"
+    "https://stats.dev-platform.uz",
+    "http://localhost:3000",
     "https://www.aiday.infinite-co.uz",
 ]
 
@@ -55,7 +50,8 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "https://aiday.infinite-co.uz",
     "https://online.raqamliavlod.uz",
-    "https://stats.dev-platform.uz"
+    "https://stats.dev-platform.uz",
+    "http://localhost:3000"
 
 ]
 
