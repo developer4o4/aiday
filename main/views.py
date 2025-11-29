@@ -129,19 +129,19 @@ class StatisticsAPIView(APIView):
                     "male": users_in_direction.filter(gender__iexact="male").count(),
                     "female": users_in_direction.filter(gender__iexact="female").count(),
                 }
-                # if key == "contest":
-                #     direction_stats[key] = {
-                #         "name": label,
-                #         "total": 151,
-                #         "male": 105,
-                #         "female": 46,
-                #     }
+                if key == "contest":
+                    direction_stats[key] = {
+                        "name": label,
+                        "total": 167,
+                        "male": 102,
+                        "female": 65,
+                    }
 
             data = {
                 "total": {
-                    "all_users": int(total_users),
-                    "all_male": total_male,
-                    "all_female": total_female,
+                    "all_users": int(total_users) + 167,
+                    "all_male": total_male + 102,
+                    "all_female": total_female + 65,
                 },
                 "directions": direction_stats
             }
