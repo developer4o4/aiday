@@ -132,16 +132,16 @@ class StatisticsAPIView(APIView):
                 if key == "contest":
                     direction_stats[key] = {
                         "name": label,
-                        "total": 167,
-                        "male": 102,
-                        "female": 65,
+                        "total": 190,
+                        "male": 117,
+                        "female": 73,
                     }
 
             data = {
                 "total": {
-                    "all_users": int(total_users) + 167,
-                    "all_male": total_male + 102,
-                    "all_female": total_female + 65,
+                    "all_users": int(total_users) + 190,
+                    "all_male": total_male + 117,
+                    "all_female": total_female + 73,
                 },
                 "directions": direction_stats
             }
